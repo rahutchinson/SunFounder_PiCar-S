@@ -22,11 +22,9 @@ picar.setup()
 REFERENCES = [200, 200, 200, 200, 200]
 #calibrate = True
 calibrate = False
-forward_speed = 80
-backward_speed = 70
+forward_speed = 50
 turning_angle = 40
 
-max_off_track_count = 40
 
 delay = 0.0005
 
@@ -49,9 +47,8 @@ def setup():
 	if calibrate:
 		cali()
 
-def main():
+def line_follow():
 	global turning_angle
-	off_track_count = 0
 	bw.speed = forward_speed
 
 	a_step = 3
@@ -76,39 +73,14 @@ def main():
 
 		# Direction calculate
 		if	lt_status_now == [0,0,1,0,0]:
-			off_track_count = 0
 			fw.turn(90)
 		# turn right
 		elif lt_status_now in ([0,1,1,0,0],[0,1,0,0,0],[1,1,0,0,0],[1,0,0,0,0]):
-			off_track_count = 0
 			turning_angle = int(90 - step)
 		# turn left
 		elif lt_status_now in ([0,0,1,1,0],[0,0,0,1,0],[0,0,0,1,1],[0,0,0,0,1]):
-			off_track_count = 0
 			turning_angle = int(90 + step)
-		elif lt_status_now == [0,0,0,0,0]:
-			off_track_count += 1
-			if off_track_count > max_off_track_count:
-				#tmp_angle = -(turning_angle - 90) + 90
-				tmp_angle = (turning_angle-90)/abs(90-turning_angle)
-				tmp_angle *= fw.turning_max
-				bw.speed = backward_speed
-				bw.backward()
-				fw.turn(tmp_angle)
-				
-				lf.wait_tile_center()
-				bw.stop()
 
-				fw.turn(turning_angle)
-				time.sleep(0.2)
-				bw.speed = forward_speed
-				bw.forward()
-				time.sleep(0.2)
-
-				
-
-		else:
-			off_track_count = 0
 	
 		fw.turn(turning_angle)
 		time.sleep(delay)
@@ -156,7 +128,7 @@ if __name__ == '__main__':
 		try:
 			while True:
 				setup()
-				main()
+				line_follow()
 				#straight_run()
 		except Exception as e:
 			print(e)
