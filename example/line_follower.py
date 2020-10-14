@@ -133,9 +133,9 @@ class Buggy:
         print("PickUp")
         time.sleep(4)
         print("PickedUp")
-        self.bw.speed = 100
+        self.bw.speed = 25
         self.bw.forward()
-        time.sleep(2)
+        time.sleep(1)
         self.bw.stop()
 
     def slow_down(self):
