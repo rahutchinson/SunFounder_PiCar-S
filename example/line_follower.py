@@ -130,7 +130,10 @@ class Buggy:
 
     def pick_up(self):
         self.bw.stop()
+        print("PickUp")
         time.sleep(4)
+        print("PickedUp")
+        self.bw.speed = 100
         self.bw.forward()
         time.sleep(2)
         self.bw.stop()
@@ -153,9 +156,6 @@ if __name__ == '__main__':
             while True:
                 buggy.setup()
                 buggy.line_follow()
-                print("Station")
-                buggy.line_follow()
-            # straight_run()
         except Exception as e:
             print(e)
             print('error try again in 5')
