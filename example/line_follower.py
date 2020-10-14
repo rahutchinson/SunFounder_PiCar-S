@@ -77,10 +77,10 @@ class Buggy:
             # turn right
             elif lt_status_now in ([0, 1, 1, 0, 0], [0, 1, 0, 0, 0], [1, 1, 0, 0, 0], [1, 0, 0, 0, 0]):
                 turning_angle = int(90 - step)
-            # turn left
+            # turn lefts
             elif lt_status_now in ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]):
                 turning_angle = int(90 + step)
-            elif lt_status_now in ([0, 1, 1, 1, 0]):
+            elif lt_status_now in ([0, 1, 1, 1, 0], [0, 0, 1, 1, 1], [1, 1, 1, 0, 0]):
                 self.slow_down()
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
                 self.pick_up()
@@ -129,14 +129,14 @@ class Buggy:
         self.fw.turn(90)
 
     def pick_up(self):
-        self.destroy()
+        self.bw.stop()
         time.sleep(4)
         self.bw.forward()
-        time.sleep(.75)
+        time.sleep(2)
         self.bw.stop()
 
     def slow_down(self):
-        self.destroy()
+        self.bw.stop()
         self.bw.speed = 20
         self.bw.forward()
 
