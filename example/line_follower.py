@@ -81,12 +81,8 @@ class Buggy:
             elif lt_status_now in ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]):
                 turning_angle = int(90 + step)
             elif lt_status_now in ([0, 1, 1, 1, 0]):
-                self.destroy()
-                self.bw.speed = 20
-                self.bw.forward()
+                self.slow_down()
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
-                self.destroy()
-                time.sleep(4)
                 self.pick_up()
                 break
 
@@ -133,9 +129,16 @@ class Buggy:
         self.fw.turn(90)
 
     def pick_up(self):
+        self.destroy()
+        time.sleep(4)
         self.bw.forward()
-        time.sleep(.25)
+        time.sleep(.75)
         self.bw.stop()
+
+    def slow_down(self):
+        self.destroy()
+        self.bw.speed = 20
+        self.bw.forward()
 
     def setup(self):
         if self.calibrate:
