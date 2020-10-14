@@ -133,6 +133,8 @@ class Buggy:
         print("PickUp")
         time.sleep(4)
         print("PickedUp")
+
+    def continue_to_next(self):
         self.bw.speed = 25
         self.bw.forward()
         time.sleep(1)
@@ -156,6 +158,7 @@ if __name__ == '__main__':
             while True:
                 buggy.setup()
                 buggy.line_follow()
+                buggy.continue_to_next()
         except Exception as e:
             print(e)
             print('error try again in 5')
