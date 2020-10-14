@@ -25,7 +25,7 @@ class Buggy:
         self.REFERENCES = [200, 200, 200, 200, 200]
         self.calibrate = True
         # calibrate = False
-        self.forward_speed = 40
+        self.forward_speed = 60
         self.turning_angle = 40
 
         self.delay = 0.0005
@@ -48,7 +48,7 @@ class Buggy:
     def line_follow(self):
         self.bw.speed = self.forward_speed
 
-        a_step = 3
+        a_step = 6
         b_step = 10
         c_step = 30
         d_step = 45
