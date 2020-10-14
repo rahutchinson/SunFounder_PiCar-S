@@ -83,6 +83,7 @@ class Buggy:
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
                 self.destroy()
                 time.sleep(4)
+                self.pick_up()
                 break
 
             self.fw.turn(turning_angle)
@@ -126,6 +127,11 @@ class Buggy:
     def destroy(self):
         self.bw.stop()
         self.fw.turn(90)
+
+    def pick_up(self):
+        self.bw.forward()
+        time.sleep(.25)
+        self.bw.stop()
 
     def setup(self):
         if self.calibrate:
