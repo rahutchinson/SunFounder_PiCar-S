@@ -80,6 +80,10 @@ class Buggy:
             # turn left
             elif lt_status_now in ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]):
                 turning_angle = int(90 + step)
+            elif lt_status_now in ([0, 1, 1, 1, 0]):
+                self.destroy()
+                self.bw.speed = 20
+                self.bw.forward()
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
                 self.destroy()
                 time.sleep(4)
