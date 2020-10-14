@@ -56,6 +56,7 @@ class Buggy:
         while True:
             lt_status_now = self.lf.read_digital()
             print(lt_status_now)
+            print(self.lf.read_analog())
             # Angle calculate
             step = 0
             if lt_status_now == [0, 0, 1, 0, 0]:
