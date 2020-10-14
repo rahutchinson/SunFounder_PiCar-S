@@ -25,7 +25,7 @@ class Buggy:
         self.REFERENCES = [200, 200, 200, 200, 200]
         self.calibrate = True
         # calibrate = False
-        self.forward_speed = 50
+        self.forward_speed = 40
         self.turning_angle = 40
 
         self.delay = 0.0005
@@ -80,6 +80,7 @@ class Buggy:
             elif lt_status_now in ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]):
                 turning_angle = int(90 + step)
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
+                time.sleep(4)
                 break
 
             self.fw.turn(turning_angle)
@@ -88,7 +89,7 @@ class Buggy:
     def cali(self):
         references = [0, 0, 0, 0, 0]
         print("cali for module:\n  first put all sensors on white, then put all sensors on black")
-        mount = 200
+        mount = 50
         self.fw.turn(70)
         print("\n cali white")
         time.sleep(4)
@@ -112,7 +113,8 @@ class Buggy:
         time.sleep(0.5)
         self.fw.turn(90)
         time.sleep(1)
-
+        print(f"White References: {white_references}")
+        print(f"Black References: {black_references}")
         for i in range(0, 5):
             references[i] = (white_references[i] + black_references[i]) / 2
         self.lf.references = references
@@ -126,14 +128,17 @@ class Buggy:
     def setup(self):
         if self.calibrate:
             self.cali()
+            self.calibrate = False
 
 
 if __name__ == '__main__':
+    buggy = Buggy()
     try:
         try:
-            buggy = Buggy()
             while True:
                 buggy.setup()
+                buggy.line_follow()
+                print("Station")
                 buggy.line_follow()
             # straight_run()
         except Exception as e:
