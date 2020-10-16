@@ -25,7 +25,7 @@ class Buggy:
         self.REFERENCES = [20.5, 25.0, 28.0, 21.5, 20.5]
         # self.calibrate = True
         self.calibrate = False
-        self.forward_speed = 50
+        self.forward_speed = 30
         self.turning_angle = 45
 
         self.delay = 0.0001
@@ -153,8 +153,10 @@ if __name__ == '__main__':
                 buggy.line_follow()
                 current_station += 1
                 if current_station == go_to_station:
+                    print("at location")
                     break
                 else:
+                    print("going to next")
                     buggy.continue_to_next()
         except Exception as e:
             print(e)
