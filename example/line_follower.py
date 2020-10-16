@@ -25,10 +25,10 @@ class Buggy:
         self.REFERENCES = [200, 200, 200, 200, 200]
         self.calibrate = True
         # calibrate = False
-        self.forward_speed = 60
-        self.turning_angle = 40
+        self.forward_speed = 50
+        self.turning_angle = 45
 
-        self.delay = 0.0005
+        self.delay = 0.0001
 
         self.fw = front_wheels.Front_Wheels(db='config')
         self.bw = back_wheels.Back_Wheels(db='config')
@@ -37,7 +37,7 @@ class Buggy:
         self.lf.references = self.REFERENCES
         self.fw.ready()
         self.bw.ready()
-        self.fw.turning_max = 45
+        self.fw.turning_max = 60
 
     def straight_run(self):
         while True:
@@ -48,10 +48,10 @@ class Buggy:
     def line_follow(self):
         self.bw.speed = self.forward_speed
 
-        a_step = 6
-        b_step = 10
-        c_step = 30
-        d_step = 45
+        a_step = 8
+        b_step = 15
+        c_step = 35
+        d_step = 60
         self.bw.forward()
         while True:
             lt_status_now = self.lf.read_digital()
@@ -80,8 +80,6 @@ class Buggy:
             # turn lefts
             elif lt_status_now in ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]):
                 turning_angle = int(90 + step)
-            elif lt_status_now in ([0, 1, 1, 1, 0], [0, 0, 1, 1, 1], [1, 1, 1, 0, 0]):
-                self.slow_down()
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
                 self.pick_up()
                 break
@@ -93,12 +91,12 @@ class Buggy:
         references = [0, 0, 0, 0, 0]
         print("cali for module:\n  first put all sensors on white, then put all sensors on black")
         mount = 50
-        self.fw.turn(70)
+        self.fw.turn(60)
         print("\n cali white")
         time.sleep(4)
         self.fw.turn(90)
         white_references = self.lf.get_average(mount)
-        self.fw.turn(100)
+        self.fw.turn(110)
         time.sleep(0.5)
         self.fw.turn(80)
         time.sleep(0.5)
@@ -140,10 +138,6 @@ class Buggy:
         time.sleep(1)
         self.bw.stop()
 
-    def slow_down(self):
-        self.bw.stop()
-        self.bw.speed = 20
-        self.bw.forward()
 
     def setup(self):
         if self.calibrate:
