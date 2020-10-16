@@ -48,10 +48,10 @@ class Buggy:
     def line_follow(self):
         self.bw.speed = self.forward_speed
 
-        a_step = 8
-        b_step = 15
-        c_step = 35
-        d_step = 60
+        a_step = 6
+        b_step = 12
+        c_step = 30
+        d_step = 50
         self.bw.forward()
         while True:
             lt_status_now = self.lf.read_digital()
@@ -81,7 +81,6 @@ class Buggy:
             elif lt_status_now in ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]):
                 turning_angle = int(90 + step)
             elif lt_status_now in ([1, 1, 1, 1, 1], [0, 1, 1, 1, 1], [1, 1, 1, 1, 0]):
-                self.pick_up()
                 break
 
             self.fw.turn(turning_angle)
@@ -129,15 +128,12 @@ class Buggy:
     def pick_up(self):
         self.bw.stop()
         print("PickUp")
-        time.sleep(4)
-        print("PickedUp")
 
     def continue_to_next(self):
         self.bw.speed = 25
         self.bw.forward()
-        time.sleep(1)
+        time.sleep(.5)
         self.bw.stop()
-
 
     def setup(self):
         if self.calibrate:
@@ -149,7 +145,7 @@ if __name__ == '__main__':
     buggy = Buggy()
 
     current_station = 0
-    go_to_station = 3
+    go_to_station = 2
     try:
         try:
             while True:
