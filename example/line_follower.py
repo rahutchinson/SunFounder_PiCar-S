@@ -49,7 +49,7 @@ class Buggy:
         self.bw.speed = self.forward_speed
 
         a_step = 6
-        b_step = 12
+        b_step = 20
         c_step = 30
         d_step = 50
         self.bw.forward()
