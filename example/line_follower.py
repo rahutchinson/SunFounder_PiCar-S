@@ -25,10 +25,10 @@ class Buggy:
         self.REFERENCES = [20.5, 25.0, 28.0, 21.5, 20.5]
         # self.calibrate = True
         self.calibrate = False
-        self.forward_speed = 30
+        self.forward_speed = 40
         self.turning_angle = 45
 
-        self.delay = 0.0001
+        self.delay = 0.0005
 
         self.fw = front_wheels.Front_Wheels(db='config')
         self.bw = back_wheels.Back_Wheels(db='config')
@@ -153,6 +153,7 @@ if __name__ == '__main__':
                 buggy.line_follow()
                 current_station += 1
                 if current_station == go_to_station:
+                    buggy.destroy()
                     print("at location")
                     break
                 else:
