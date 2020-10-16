@@ -153,12 +153,19 @@ class Buggy:
 
 if __name__ == '__main__':
     buggy = Buggy()
+
+    current_station = 0
+    go_to_station = 2
     try:
         try:
             while True:
                 buggy.setup()
                 buggy.line_follow()
-                buggy.continue_to_next()
+                current_station += 1
+                if current_station == go_to_station:
+                    break
+                else:
+                    buggy.continue_to_next()
         except Exception as e:
             print(e)
             print('error try again in 5')
