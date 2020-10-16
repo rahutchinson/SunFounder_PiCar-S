@@ -149,7 +149,7 @@ if __name__ == '__main__':
     buggy = Buggy()
 
     current_station = 0
-    go_to_station = 2
+    go_to_station = 8
     try:
         try:
             while True:
