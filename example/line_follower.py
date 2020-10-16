@@ -22,9 +22,9 @@ class Buggy:
     def __init__(self):
         picar.setup()
 
-        self.REFERENCES = [200, 200, 200, 200, 200]
-        self.calibrate = True
-        # calibrate = False
+        self.REFERENCES = [20.5, 25.0, 28.0, 21.5, 20.5]
+        # self.calibrate = True
+        self.calibrate = False
         self.forward_speed = 50
         self.turning_angle = 45
 
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     buggy = Buggy()
 
     current_station = 0
-    go_to_station = 8
+    go_to_station = 3
     try:
         try:
             while True:
